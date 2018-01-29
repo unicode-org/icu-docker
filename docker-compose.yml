@@ -29,6 +29,13 @@ ubuntuclang:
     - ./dist:/dist
     - ./tmp/.ccache:/home/build/.ccache
 
+gcc:
+  build: ./dockerfiles/gcc
+  volumes:
+    - ./src:/src
+    - ./dist:/dist
+    - ./tmp/.ccache:/home/build/.ccache
+
 # Local Variables:
 # compile-command: "docker-compose build"
 # End:
