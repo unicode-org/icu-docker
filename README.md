@@ -11,10 +11,7 @@ It sets up `ccache` to share cached compiler output in `./tmp/.ccache` and expec
 - install [Docker](http://docker.io)
 - bring in ICU source
 
-     # Option A: svn checkout
      svn co http://source.icu-project.org/repos/icu/trunk src/icu
-     # Option B: symlink
-     ln -s ~/src/icu ./src/icu
 
 - run tests
 
