@@ -21,14 +21,14 @@ dirs:
 dbuild: docker-compose.yml
 	docker-compose build
 
-build-all: all dbuild
+build-all: all
 	for distro in $(DISTROS); do \
 	  echo $$distro ; \
 	  ( docker-compose run $$distro bash $(BINPATH)/build.sh || exit 1); \
 	done
 	echo all OK
 
-check-all: all dbuild
+check-all: all 
 	for distro in $(DISTROS); do \
 	  echo $$distro ; \
 	rm -f $$distro.fail ; \
@@ -36,7 +36,7 @@ check-all: all dbuild
 	done
 	echo all OK
 
-check-some: all dbuild
+check-some: all 
 	for distro in $(DISTROS_SMALL); do \
 	  echo $$distro ; \
 	rm -f $$distro.fail ; \
@@ -44,30 +44,30 @@ check-some: all dbuild
 	done
 	echo all OK
 
-dist-all: all dbuild
+dist-all: all 
 	for distro in $(DISTROS); do \
 	  echo $$distro ; \
-	  ( docker-compose run $$distro env REV=$(REV) WHAT=$$distro /src/makedist.sh $$distro || exit 1); \
+	  ( docker-compose run $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makedist.sh $$distro || exit 1); \
 	done
 	echo all OK
 
-dist-some: all dbuild
+dist-some: all 
 	for distro in $(DISTROS_SMALL); do \
 	  echo $$distro ; \
-	  ( docker-compose run $$distro env REV=$(REV) WHAT=$$distro /src/makedist.sh $$distro || exit 1); \
+	  ( docker-compose run $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makedist.sh $$distro || exit 1); \
 	done
 	echo all OK
 
 dist: sdist dist-some
 
-sdist: all dbuild
+sdist: all 
 	for distro in $(firstword $(DISTROS_SMALL)); do \
 	  echo $$distro ; \
-	  ( docker-compose run $$distro env REV=$(REV) WHAT=$$distro /src/makesdoc.sh $$distro || exit 1); \
+	  ( docker-compose run $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makesdoc.sh $$distro || exit 1); \
 	done
 	echo all OK
 
-perf-all: all dbuild
+perf-all: all 
 	for distro in $(DISTROS); do \
 	  echo $$distro ; \
 	  ( docker-compose run $$distro bash $(BINPATH)/perf.sh $$distro || exit 1); \

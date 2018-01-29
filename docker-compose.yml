@@ -15,6 +15,20 @@ fedora:
     - ./dist:/dist
     - ./tmp/.ccache:/home/build/.ccache
 
+ubuntu32:
+  build: ./dockerfiles/ubuntu32
+  volumes:
+    - ./src:/src
+    - ./dist:/dist
+    - ./tmp/.ccache:/home/build/.ccache
+
+ubuntuclang:
+  build: ./dockerfiles/ubuntuclang
+  volumes:
+    - ./src:/src
+    - ./dist:/dist
+    - ./tmp/.ccache:/home/build/.ccache
+
 # Local Variables:
 # compile-command: "docker-compose build"
 # End:
