@@ -17,6 +17,7 @@ all:	dirs src/icu
 dirs:
 	mkdir -p $(DIRS) tmp/.ccache
 	chmod a+rwxt tmp/.ccache dist
+	chmod -R o+rX src
 
 dbuild: docker-compose.yml
 	docker-compose build
