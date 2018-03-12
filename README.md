@@ -25,7 +25,7 @@ It sets up `ccache` to share cached compiler output in `./tmp/.ccache` and expec
 
 this will make error messages work
 
-     sudo ln -sv `pwd`{src,dist} /
+     sudo ln -sv `pwd`/{src,dist} /
 
 - do some command line builds
 
