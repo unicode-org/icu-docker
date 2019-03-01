@@ -11,7 +11,12 @@ It sets up `ccache` to share cached compiler output in `./tmp/.ccache` and expec
 - install [Docker](http://docker.io)
 - bring in ICU source
 
-     svn co http://source.icu-project.org/repos/icu/trunk src/icu
+     cd src
+     git clone --branch master --depth 1 https://github.com/unicode-org/icu.git
+     cd icu
+     git lfs fetch
+     git lfs checkout
+     cd ../..
 
 - run tests
 
