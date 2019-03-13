@@ -48,6 +48,27 @@ this will make error messages work
     checking for ICU version numbers...
 ```
 
+## Coverity Scan
+
+https://scan.coverity.com/
+
+- download the scanning tools and install them as `src/bin/cov-analysis-linux64/`
+(you can unpack the .tgz in src/bin and create a symlink)
+
+- create an executable script file named `src/bin/local-coverity.sh` with
+the following contents: (see the coverity page for the project for more details)
+
+```shell
+export PROJ=icu4c
+export COVERITY_TOKEN=yourtoken
+export COVERITY_EMAIL=email@example.com
+```
+
+- Kick it off: `docker-compose run ubuntu /src/bin/cov-icu4c.sh`
+
+Note: you may want to do `docker-compose run ubuntu` and then run the script from the command line
+if there are problems.
+
 ## Author
 
 Steven R. Loomis
