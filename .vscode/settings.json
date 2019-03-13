@@ -1,0 +1,7 @@
+{
+    "files.exclude": {
+        "src/icu": true,
+        "tmp": true,
+        "dist": true   
+    }
+}
