@@ -13,6 +13,7 @@ SRC=src/icu
 REV:=$(shell (cd $(SRC) >/dev/null 2>/dev/null && (git describe --tags --exact-match 2>/dev/null || git rev-parse --short HEAD)) || echo 'unknown')
 #icu4c version
 ICU4CVER:=$(shell ./$(BINPATH)/check-icu4c-version.sh  $(SRC)/icu4c )
+DOCKERRUN=docker-compose run --rm
 all:	dirs src/icu
 
 #src/icu: src
@@ -32,7 +33,7 @@ dbuild: docker-compose.yml
 build-all: all
 	for distro in $(DISTROS); do \
 	  echo $$distro ; \
-	  ( docker-compose run $$distro bash $(BINPATH)/build.sh || exit 1); \
+	  ( $(DOCKERRUN) $$distro bash $(BINPATH)/build.sh || exit 1); \
 	done
 	echo all OK $(ICU4CVER)
 
@@ -40,7 +41,7 @@ check-all: all
 	for distro in $(DISTROS); do \
 	  echo $$distro ; \
 	rm -f $$distro.fail ; \
-	  ( docker-compose run $$distro bash $(BINPATH)/check.sh || (>$$distro.fail; exit 1)) >&1 | tee $$distro.out; \
+	  ( $(DOCKERRUN) $$distro bash $(BINPATH)/check.sh || (>$$distro.fail; exit 1)) >&1 | tee $$distro.out; \
 	done
 	echo all OK $(ICU4CVER)
 
@@ -48,21 +49,21 @@ check-some: all
 	for distro in $(DISTROS_SMALL); do \
 	  echo $$distro ; \
 	rm -f $$distro.fail ; \
-	  ( docker-compose run $$distro bash $(BINPATH)/check.sh || (>$$distro.fail; exit 1)) >&1 | tee $$distro.out; \
+	  ( $(DOCKERRUN) $$distro bash $(BINPATH)/check.sh || (>$$distro.fail; exit 1)) >&1 | tee $$distro.out; \
 	done
 	echo all OK $(ICU4CVER)
 
 dist-all: all 
 	for distro in $(DISTROS); do \
 	  echo $$distro ; \
-	  ( docker-compose run $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makedist.sh $$distro || exit 1); \
+	  ( $(DOCKERRUN) $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makedist.sh $$distro || exit 1); \
 	done
 	echo all OK $(ICU4CVER)
 
 dist-some: all 
 	for distro in $(DISTROS_SMALL); do \
 	  echo $$distro ; \
-	  ( docker-compose run $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makedist.sh $$distro || exit 1); \
+	  ( $(DOCKERRUN) $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makedist.sh $$distro || exit 1); \
 	done
 	echo all OK $(ICU4CVER)
 
@@ -72,7 +73,7 @@ dist: sdist dist-some
 src-some: all 
 	for distro in $(DISTROS_SMALL); do \
 	  echo $$distro ; \
-	  ( docker-compose run $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makesrc.sh $$distro || exit 1); \
+	  ( $(DOCKERRUN) $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makesrc.sh $$distro || exit 1); \
 	done
 	echo all OK $(ICU4CVER)
 
@@ -80,21 +81,21 @@ src-some: all
 src-one: all 
 	for distro in $(firstword $(DISTROS_SMALL)); do \
 	  echo $$distro ; \
-	  ( docker-compose run $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makesrc.sh $$distro || exit 1); \
+	  ( $(DOCKERRUN) $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makesrc.sh $$distro || exit 1); \
 	done
 	echo all OK $(ICU4CVER)
 
 sdist: all 
 	for distro in $(firstword $(DISTROS_SMALL)); do \
 	  echo $$distro ; \
-	  ( docker-compose run $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makesdoc.sh $$distro || exit 1); \
+	  ( $(DOCKERRUN) $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makesdoc.sh $$distro || exit 1); \
 	done
 	echo all OK $(ICU4CVER)
 
 perf-all: all 
 	for distro in $(DISTROS); do \
 	  echo $$distro ; \
-	  ( docker-compose run $$distro bash $(BINPATH)/perf.sh $$distro || exit 1); \
+	  ( $(DOCKERRUN) $$distro bash $(BINPATH)/perf.sh $$distro || exit 1); \
 	done
 	echo all OK $(ICU4CVER)
 
