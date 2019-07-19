@@ -40,6 +40,10 @@ this will make error messages work
     checking for ICU version numbers...
 ```
 
+- just build tarballs (can work on older releases)
+
+     make src-one
+
 ## Author
 
 Steven R. Loomis

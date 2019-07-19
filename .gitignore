@@ -9,3 +9,7 @@
 *.log
 /local
 src/tmp
+/src/bin/cov-*
+/Makefile.local
+/pretest-run.pl
+/src/bin/local-*

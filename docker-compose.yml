@@ -7,6 +7,7 @@ ubuntu:
     - ./src:/src
     - ./dist:/dist
     - ./tmp/.ccache:/home/build/.ccache
+    - /Users/srl/src/icu/.git/objects:/Users/srl/src/icu/.git/objects
 
 fedora:
   build: ./dockerfiles/fedora
