@@ -8,6 +8,13 @@ ubuntu:
     - ./dist:/dist
     - ./tmp/.ccache:/home/build/.ccache
 
+alpine:
+  build: ./dockerfiles/alpine
+  volumes:
+    - ./src:/src
+    - ./dist:/dist
+    - ./tmp/.ccache:/home/build/.ccache
+
 fedora:
   build: ./dockerfiles/fedora
   volumes:

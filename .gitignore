@@ -9,3 +9,5 @@
 *.log
 /local
 src/tmp
+/Makefile.local
+/local-*
