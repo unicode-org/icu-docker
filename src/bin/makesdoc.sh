@@ -9,21 +9,22 @@ if [ ! -f config.status ];
 then
     icu-configure.sh --disable-tests --disable-extras || exit 1
 fi
+ICUREV=$(/src/bin/icu-git-rev.sh)
 
 
 if [ -f /etc/os-release ];
 then
     . /etc/os-release
 fi
-FN=icu-r${REV-$(svnversion /src/icu/ | tr -d ' ')}-$(bash /src/icu/icu4c/source/config.guess)-${NAME-${WHAT}}-${VERSION_ID-UNKNOWN}
+FN=icu-r${ICUREV}-$(bash /src/icu/icu4c/source/config.guess)-${NAME-${WHAT}}-${VERSION_ID-UNKNOWN}
 
 rm -rf dist /dist/${FN}-src.d || true
-make -j${CORES} && make dist
+make -j${CORES} && make dist SVNVER=${ICUREV}
 
 mv -v dist /dist/${FN}-src.d
 
 rm -rf doc
-make doc-searchengine
+make doc-searchengine  SVNVER=${ICUREV}
 
 #FN=icu-r$(svnversion /src/icu/ | tr -d ' ')-$(bash /src/icu/icu4c/source/config.guess)-${1:RANDOM}
 tar cfpz /dist/${FN}-sdoc.tgz ./doc || exit 1

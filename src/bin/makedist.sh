@@ -8,13 +8,14 @@ if [ -f /etc/os-release ];
 then
     . /etc/os-release
 fi
-FN=icu-r${REV-$(svnversion /src/icu/ | tr -d ' ')}-$(bash /src/icu/icu4c/source/config.guess)-${NAME-${WHAT}}-${VERSION_ID-UNKNOWN}
+ICUREV=$(/src/bin/icu-git-rev.sh)
+FN=icu-r${REV-${ICUREV}}-$(bash /src/icu/icu4c/source/config.guess)-${NAME-${WHAT}}-${VERSION_ID-UNKNOWN}
 if [ ! -f config.status ];
 then
     icu-configure.sh || exit 1
 fi
 rm -rf /tmp/icu
-make -j${CORES} check && make -j${CORES} DESTDIR=/tmp/icu releaseDist || exit 1
+make -j${CORES} check && make -j${CORES} DESTDIR=/tmp/icu SVNVER=${ICUREV} releaseDist || exit 1
 #cp -v *-src-*.tgz /dist/${FN}-src.tgz || true
 cd /tmp/
 if [ -f /dist/${FN}.tgz ];
