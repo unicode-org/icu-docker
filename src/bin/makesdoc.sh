@@ -15,6 +15,7 @@ if [ -f /etc/os-release ];
 then
     . /etc/os-release
 fi
+NAME=$(echo "${NAME}" | tr " " "_")
 FN=icu-r${REV-$(svnversion /src/icu/ | tr -d ' ')}-$(bash /src/icu/icu4c/source/config.guess)-${NAME-${WHAT}}-${VERSION_ID-UNKNOWN}
 
 rm -rf dist /dist/${FN}-src.d || true
