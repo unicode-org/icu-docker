@@ -5,6 +5,14 @@
 This is a set of dockerfiles and a Makefile to develop with ICU (against Ubuntu, Fedora, anything else you can run from docker).
 It sets up `ccache` to share cached compiler output in `./tmp/.ccache` and expects an ICU source directory under `./src/icu`
 
+## Customization
+
+You can create a `Makefile.local` that can point to a different docker-compose.yaml:
+
+```
+# Makefile.local
+DOCKER_COMPOSE=docker-compose -f local-docker-compose.yml
+```
 
 ## Usage
 
