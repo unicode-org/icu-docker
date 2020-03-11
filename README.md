@@ -33,6 +33,9 @@ DOCKER_COMPOSE=docker-compose -f local-docker-compose.yml
 - build binaries
 
      make dist
+     # sort into dist/icu4c-66.1/*
+     ./sort-out-dist.sh
+     ls -l dist/icu4c-*
 
 - optional: symlink `src/` to `/src` on your system
 
