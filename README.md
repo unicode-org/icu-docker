@@ -51,7 +51,17 @@ this will make error messages work
     checking for ICU version numbers...
 ```
 
+## ICU4J
+
+- the following will build (in-source!) using adoptopenjdk9
+
+```shell
+docker-compose run fedora-j ant jar check
+```
+
 ## Coverity Scan
+
+### ICU4C
 
 https://scan.coverity.com/
 
@@ -62,23 +72,21 @@ https://scan.coverity.com/
 the following contents: (see the coverity page for the project for more details)
 
 ```shell
-export PROJ=icu4c
 export COVERITY_TOKEN=yourtoken
 export COVERITY_EMAIL=email@example.com
 ```
+
 
 - Kick it off: `docker-compose run ubuntu /src/bin/cov-icu4c.sh`
 
 Note: you may want to do `docker-compose run ubuntu` and then run the script from the command line
 if there are problems.
 
-## ICU4J
+### ICU4J 
 
-- the following will build (in-source!) using adoptopenjdk9
-
-```shell
-docker-compose run fedora-j ant jar check
-```
+- For J, create a similar `src/bin/local-coverity-j.sh`
+- Then run:
+`docker-compose -f local-docker-compose.yml run fedora-j /src/bin/cov-icu4j.sh`
 
 ## Author
 

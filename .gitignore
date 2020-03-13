@@ -12,4 +12,4 @@ src/tmp
 /Makefile.local
 /local-*
 /src/bin/cov-analysis-linux64*
-/src/bin/local-coverity.sh
+/src/bin/local-*
