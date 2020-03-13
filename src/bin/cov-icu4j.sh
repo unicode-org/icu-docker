@@ -8,7 +8,7 @@ then
     echo missing /src/bin/local-coverity-j.sh
     exit 1
 fi
-. /src/bin/local-coverity.sh
+. /src/bin/local-coverity-j.sh
 if [ ! -d ${COVDIR} ];
 then
     echo missing coverity dir ${COVDIR}
