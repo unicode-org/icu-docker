@@ -1,6 +1,12 @@
 # © 2016 and later: Unicode, Inc. and others.
 # License & terms of use: http://www.unicode.org/copyright.html
 
+fedora-j:
+  build: ./dockerfiles/fedora-j
+  volumes:
+    - ./src:/src
+    - ./dist:/dist
+
 ubuntu:
   build: ./dockerfiles/ubuntu
   volumes:

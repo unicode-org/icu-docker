@@ -42,10 +42,18 @@ this will make error messages work
 
 - do some command line builds
 
-```
+```shell
     $ docker-compose run ubuntu bash
     build@59b67f6c5058:~$ /src/icu/icu4c/source/configure
     checking for ICU version numbers...
+```
+
+## ICU4J
+
+- the following will build (in-source!) using adoptopenjdk9
+
+```shell
+docker-compose run fedora-j ant jar check
 ```
 
 ## Author
