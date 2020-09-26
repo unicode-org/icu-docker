@@ -13,7 +13,7 @@ RUN dnf -q -y upgrade $RPMOPTZ
 ADD adoptopenjdk.repo /etc/yum.repos.d
 RUN dnf -q -y install adoptopenjdk-8-openj9 $RPMOPTZ
 RUN dnf -q -y install ant $RPMOPTZ
-RUN dnf -q -y install git curl $RPMOPTZ
+RUN dnf -q -y install git curl maven gpg $RPMOPTZ
 #extra
 # editing
 #RUN apt-get -q -y install emacs24-nox
