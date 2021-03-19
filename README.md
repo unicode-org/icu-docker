@@ -43,7 +43,7 @@ DOCKER_COMPOSE=docker-compose -f local-docker-compose.yml
 ````
 - optional: symlink `src/` to `/src` on your system
 
-This will make error messages work
+This symlink will make error messages from inside the container usable on your local system, of the form: `Error in /src/icu/somefile.cpp`.
 ````
      sudo ln -sv `pwd`/{src,dist} /
 ````
