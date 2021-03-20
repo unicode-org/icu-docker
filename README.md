@@ -18,38 +18,38 @@ DOCKER_COMPOSE=docker-compose -f local-docker-compose.yml
 
 - install [Docker](http://docker.io)
 - bring in ICU source
-```
+  ```
   cd src
   git clone --branch master --depth 1 https://github.com/unicode-org/icu.git
   cd icu
   git lfs fetch
   git lfs checkout
   cd ../..
-```
+  ```
 - run tests
-```
+  ```
   make check-all
-```
+  ```
 - build binaries
-```
+  ```
   make dist
-```         
+  ```         
 - sort into dist/icu4c-*/*
 
   The files should include the version label such as "69rc" for the release candidate of ICU version 69. The general availability for that would be "69.1". 
-```
+  ```
   ./sort-out-dist.sh
   ls -l dist/icu4c-*
-```
+  ```
 - optional: Link `src/` to `/src` on your system
 
 This symlink will make error messages from inside the container usable on your local system, of the form: `Error in /src/icu/somefile.cpp`.
-```
+  ```
   sudo ln -sv `pwd`/{src,dist} /
-```
+  ```
 
 - Perform some command line builds to verify the release.
-```
+  ```
   $ docker-compose run ubuntu bash
   # This creates a temporary docker shell with a name such as 'build@59b67f6c5058:~'
   build@59b67f6c5058:~$ /src/icu/icu4c/source/configure
@@ -57,7 +57,7 @@ This symlink will make error messages from inside the container usable on your l
   build@59b67f6c5058:~$ make check  # To run all ICU4C tests
   ...
   build@59b67f6c5058:~$ exit  # To leave the docker shell
-```
+  ```
 
 ## Author
 
