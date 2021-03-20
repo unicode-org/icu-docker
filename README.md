@@ -54,7 +54,7 @@ This symlink will make error messages from inside the container usable on your l
   # This creates a temporary docker shell with a name such as 'build@59b67f6c5058:~'
   build@59b67f6c5058:~$ /src/icu/icu4c/source/configure
   # This will show the ICU version number of the release just created.
-   build@59b67f6c5058:~$ make check  # To run all ICU4C tests
+  build@59b67f6c5058:~$ make check  # To run all ICU4C tests
   ...
   build@59b67f6c5058:~$ exit  # To leave the docker shell
 ```
