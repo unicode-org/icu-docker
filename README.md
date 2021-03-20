@@ -34,7 +34,7 @@ DOCKER_COMPOSE=docker-compose -f local-docker-compose.yml
   ```
   make dist
   ```         
-- sort into dist/icu4c-*/*
+- sort into `dist/icu4c-*/*`
 
   The files should include the version label such as "69rc" for the release candidate of ICU version 69. The general availability for that would be "69.1". 
   ```
