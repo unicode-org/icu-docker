@@ -11,7 +11,7 @@ RUN useradd -c "Build user" -d $HOME -m build
 
 # sanity and safety
 RUN apt-get -q -y update && apt-get -q -y upgrade
-RUN apt-get -q -y install make git subversion python ccache valgrind doxygen zip curl wget rsync
+RUN apt-get -q -y install make git python ccache valgrind doxygen zip curl wget rsync
 RUN apt-get -q -y install g++
 RUN apt-get -q -y install git-lfs
 RUN mkdir /src /dist
