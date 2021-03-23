@@ -20,7 +20,7 @@ DOCKER_COMPOSE=docker-compose -f local-docker-compose.yml
 - bring in ICU source
   ```
   cd src
-  git clone --branch master --depth 1 https://github.com/unicode-org/icu.git
+  git clone --branch main --depth 1 https://github.com/unicode-org/icu.git
   cd icu
   git lfs fetch
   git lfs checkout
