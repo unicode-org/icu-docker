@@ -11,7 +11,7 @@ RUN useradd -c "Build user" -d $HOME -m build
 
 # sanity and safety
 RUN apt-get -q -y update && apt-get -q -y upgrade
-RUN apt-get -q -y install make git python ccache valgrind doxygen zip curl wget rsync
+RUN apt-get -q -y install make git python3 ccache valgrind doxygen zip curl wget rsync
 RUN apt-get -q -y install g++
 RUN apt-get -q -y install git-lfs
 RUN mkdir /src /dist
@@ -25,6 +25,7 @@ RUN for comp in g++ gcc ld; do ln -sv `which ccache` /usr/local/bin/$comp; done
 RUN apt-get -q -y remove libicu-dev
 ENV LD_LIBRARY_PATH /usr/local/lib
 
+RUN git config --global --add safe.directory /src/icu
 USER build
 RUN git config --global --add safe.directory /src/icu
 
