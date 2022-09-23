@@ -26,3 +26,5 @@ RUN apt-get -q -y remove libicu-dev
 ENV LD_LIBRARY_PATH /usr/local/lib
 
 USER build
+RUN git config --global --add safe.directory /src/icu
+
