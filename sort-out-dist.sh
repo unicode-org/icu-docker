@@ -24,7 +24,7 @@ do
     #echo "# ${file}"
     base=$(basename $file)
     # rver is '66-1'
-    rver=$(echo $file | grep "^icu-rrelease-[0-9][0-9]-[0-9]" | cut -d- -f3-4)
+    rver=$(echo $file | grep "^icu-rrelease-[0-9][0-9]-[0-9rc]" | cut -d- -f3-4)
     if [ "${rver}" = "" ];
     then
         echo "# ${file} - could not extract release version."
@@ -38,7 +38,7 @@ do
     # echo $base
     case $base in
         *-sdoc.tgz)
-            # echo "soruce doc" $base
+            # echo "source doc" $base
             trymove ${file} ${dir} SOURCEDOC-${prefix}-SOURCEDOC.tgz
             ;;
         *-Fedora-*.tgz|*-Ubuntu-*.tgz)

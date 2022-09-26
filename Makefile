@@ -64,7 +64,7 @@ dist: sdist dist-some
 sdist: all 
 	for distro in $(firstword $(DISTROS_SMALL)); do \
 	  echo $$distro ; \
-	  ( $(DOCKER_COMPOSE) run $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)/makesdoc.sh $$distro || exit 1); \
+	  ( $(DOCKER_COMPOSE) run $$distro env REV=$(REV) WHAT=$$distro $(BINPATH)makesdoc.sh $$distro || exit 1); \
 	done
 	echo all OK
 
