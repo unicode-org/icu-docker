@@ -25,8 +25,10 @@ do
     #echo "# ${file}"
     base=$(basename $file)
     # rver is '66-1' or '66-rc'
-    mainver="icu4c-"$(echo $file | grep "^icu-rrelease-[0-9][0-9]-[0-9rc]" | cut -d- -f3)"_1"
     rver=$(echo $file | grep "^icu-rrelease-[0-9][0-9]-[0-9rc]" | cut -d- -f3-4)
+
+    # The version of the file
+    mainver="icu4c-"$(echo $file | grep "^icu-rrelease-[0-9][0-9]-[0-9rc]" | cut -d- -f3)"_1"
     if [ "${rver}" = "" ];
     then
         echo "# ${file} - could not extract release version."
@@ -45,7 +47,7 @@ do
             trymove ${file} ${dir} SOURCEDOC-${prefix}-SOURCEDOC.tgz
             ;;
         *-Fedora*.tgz|*-Ubuntu-*.tgz)
-            # icu-rrelease-66-1-x86_64-pc-linux-gnu-Ubuntu-18.04.tgz
+            # e.g., icu-rrelease-66-1-x86_64-pc-linux-gnu-Ubuntu-18.04.tgz
             arch=$(basename $file | cut -d - -f5)
             case $arch in
                 x86_64) arch="x64" ;;
@@ -59,9 +61,10 @@ do
 
 
         ${mainver}-docs.zip|${mainver}-src.tgz|${mainver}-src.zip|${mainver}-data.zip|${mainver}-data-bin-b.zip|${mainver}-data-bin-l.zip)
+          # Only if the version is not the same as the
           if [ "$mainver" != "$prefix" ]; 
           then
-            # Has the name with the release version. Change to the actual release name
+            # Has the name with the final release version. Change to the actual release name
             newname=${base/$mainver/$prefix}
             trymove ${file} ${dir} ${newname}
           fi
