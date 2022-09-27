@@ -10,6 +10,7 @@ STUFF=$(find icu-* -type f \( -name '*.zip' -o -name '*.tgz' \))
 trymove()
 {
     base2=$(basename $1)
+    # echo "@@@@@@ move " $1 " to" $3
     if [ -f ${2}/${3} ];
     then
         echo "# exists: ${2}/${3} (not copying $base2)"
@@ -23,7 +24,8 @@ for file in ${STUFF};
 do
     #echo "# ${file}"
     base=$(basename $file)
-    # rver is '66-1'
+    # rver is '66-1' or '66-rc'
+    mainver="icu4c-"$(echo $file | grep "^icu-rrelease-[0-9][0-9]-[0-9rc]" | cut -d- -f3)"_1"
     rver=$(echo $file | grep "^icu-rrelease-[0-9][0-9]-[0-9rc]" | cut -d- -f3-4)
     if [ "${rver}" = "" ];
     then
@@ -35,13 +37,14 @@ do
     dir=icu4c-$(echo $rver | tr - .)
     mkdir -pv ./${dir}/
 
+    
     # echo $base
     case $base in
         *-sdoc.tgz)
             # echo "source doc" $base
             trymove ${file} ${dir} SOURCEDOC-${prefix}-SOURCEDOC.tgz
             ;;
-        *-Fedora-*.tgz|*-Ubuntu-*.tgz)
+        *-Fedora*.tgz|*-Ubuntu-*.tgz)
             # icu-rrelease-66-1-x86_64-pc-linux-gnu-Ubuntu-18.04.tgz
             arch=$(basename $file | cut -d - -f5)
             case $arch in
@@ -53,10 +56,22 @@ do
             outname=${prefix}-${sys}-${arch}.tgz
             trymove ${file} ${dir} ${outname} 
             ;;
-        ${prefix}-docs.zip|${prefix}-src.tgz|${prefix}-src.zip|${prefix}-data.zip)
-            # already has the right name
+
+
+        ${mainver}-docs.zip|${mainver}-src.tgz|${mainver}-src.zip|${mainver}-data.zip|${mainver}-data-bin-b.zip|${mainver}-data-bin-l.zip)
+          if [ "$mainver" != "$prefix" ]; 
+          then
+            # Has the name with the release version. Change to the actual release name
+            newname=${base/$mainver/$prefix}
+            trymove ${file} ${dir} ${newname}
+          fi
+          ;;
+
+        ${prefix}-docs.zip|${prefix}-src.tgz|${prefix}-src.zip|${prefix}-data.zip|${prefix}-data-bin-b.zip|${prefix}-data-bin-l.zip)
+            # already has the right name so move it to the output area
             trymove ${file} ${dir} ${base}
             ;;
+
         icu4c-${uver}-*)
             # ignore anything else with uver
             echo "# Ignored: ${base}"
