@@ -1,0 +1,4 @@
+mkdir -p tmp src tmp/.ccache dist tmp/.ccache
+chmod a+rwxt tmp/.ccache dist
+chmod: changing permissions of 'tmp/.ccache': Operation not permitted
+make: *** [Makefile:19: dirs] Error 1
