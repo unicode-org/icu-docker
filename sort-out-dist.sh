@@ -10,7 +10,6 @@ STUFF=$(find icu-* -type f \( -name '*.zip' -o -name '*.tgz' \))
 trymove()
 {
     base2=$(basename $1)
-    # echo "@@@@@@ move " $1 " to" $3
     if [ -f ${2}/${3} ];
     then
         echo "# exists: ${2}/${3} (not copying $base2)"
@@ -43,7 +42,6 @@ do
     # echo $base
     case $base in
         *-sdoc.tgz)
-            # echo "source doc" $base
             trymove ${file} ${dir} SOURCEDOC-${prefix}-SOURCEDOC.tgz
             ;;
         *-Fedora*.tgz|*-Ubuntu-*.tgz)
@@ -54,14 +52,13 @@ do
                 *) ;;
             esac
             sys=$(basename $file .tgz | cut -d - -f9,10 | tr -d - )
-            # echo "linux bin" $base "=" $arch "sys" $sys
             outname=${prefix}-${sys}-${arch}.tgz
             trymove ${file} ${dir} ${outname} 
             ;;
 
 
         ${mainver}-docs.zip|${mainver}-src.tgz|${mainver}-src.zip|${mainver}-data.zip|${mainver}-data-bin-b.zip|${mainver}-data-bin-l.zip)
-          # Only if the version is not the same as the
+          # Only if the version is not the same as the .zip file's name
           if [ "$mainver" != "$prefix" ]; 
           then
             # Has the name with the final release version. Change to the actual release name

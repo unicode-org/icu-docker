@@ -12,6 +12,8 @@ RUN useradd -c "Build user" -d $HOME -m build
 RUN apt-get -q -y update && apt-get -q -y upgrade
 RUN apt-get -q -y install make git python3 ccache valgrind doxygen zip curl wget
 RUN apt-get -q -y install clang
+RUN apt-get update --fix-missing
+
 RUN mkdir /src /dist
 VOLUME /src
 VOLUME /dist

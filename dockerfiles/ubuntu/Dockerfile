@@ -25,7 +25,6 @@ RUN for comp in g++ gcc ld; do ln -sv `which ccache` /usr/local/bin/$comp; done
 RUN apt-get -q -y remove libicu-dev
 ENV LD_LIBRARY_PATH /usr/local/lib
 
-RUN git config --global --add safe.directory /src/icu
 USER build
 RUN git config --global --add safe.directory /src/icu
 
