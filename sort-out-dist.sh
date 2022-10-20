@@ -23,8 +23,11 @@ for file in ${STUFF};
 do
     #echo "# ${file}"
     base=$(basename $file)
-    # rver is '66-1'
-    rver=$(echo $file | grep "^icu-rrelease-[0-9][0-9]-[0-9]" | cut -d- -f3-4)
+    # rver is '66-1' or '66-rc'
+    rver=$(echo $file | grep "^icu-rrelease-[0-9][0-9]-[0-9rc]" | cut -d- -f3-4)
+
+    # The version of the file
+    mainver="icu4c-"$(echo $file | grep "^icu-rrelease-[0-9][0-9]-[0-9rc]" | cut -d- -f3)"_1"
     if [ "${rver}" = "" ];
     then
         echo "# ${file} - could not extract release version."
@@ -35,28 +38,40 @@ do
     dir=icu4c-$(echo $rver | tr - .)
     mkdir -pv ./${dir}/
 
+    
     # echo $base
     case $base in
         *-sdoc.tgz)
-            # echo "soruce doc" $base
             trymove ${file} ${dir} SOURCEDOC-${prefix}-SOURCEDOC.tgz
             ;;
-        *-Fedora-*.tgz|*-Ubuntu-*.tgz)
-            # icu-rrelease-66-1-x86_64-pc-linux-gnu-Ubuntu-18.04.tgz
+        *-Fedora*.tgz|*-Ubuntu-*.tgz)
+            # e.g., icu-rrelease-66-1-x86_64-pc-linux-gnu-Ubuntu-18.04.tgz
             arch=$(basename $file | cut -d - -f5)
             case $arch in
                 x86_64) arch="x64" ;;
                 *) ;;
             esac
             sys=$(basename $file .tgz | cut -d - -f9,10 | tr -d - )
-            # echo "linux bin" $base "=" $arch "sys" $sys
             outname=${prefix}-${sys}-${arch}.tgz
             trymove ${file} ${dir} ${outname} 
             ;;
-        ${prefix}-docs.zip|${prefix}-src.tgz|${prefix}-src.zip|${prefix}-data.zip)
-            # already has the right name
+
+
+        ${mainver}-docs.zip|${mainver}-src.tgz|${mainver}-src.zip|${mainver}-data.zip|${mainver}-data-bin-b.zip|${mainver}-data-bin-l.zip)
+          # Only if the version is not the same as the .zip file's name
+          if [ "$mainver" != "$prefix" ]; 
+          then
+            # Has the name with the final release version. Change to the actual release name
+            newname=${base/$mainver/$prefix}
+            trymove ${file} ${dir} ${newname}
+          fi
+          ;;
+
+        ${prefix}-docs.zip|${prefix}-src.tgz|${prefix}-src.zip|${prefix}-data.zip|${prefix}-data-bin-b.zip|${prefix}-data-bin-l.zip)
+            # already has the right name so move it to the output area
             trymove ${file} ${dir} ${base}
             ;;
+
         icu4c-${uver}-*)
             # ignore anything else with uver
             echo "# Ignored: ${base}"

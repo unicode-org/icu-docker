@@ -17,6 +17,7 @@ VOLUME /src
 VOLUME /dist
 VOLUME /home/build
 WORKDIR /home/build
+
 # setup ccache
 # RUN for comp in g++ gcc ld; do ln -sv `which ccache` /usr/local/bin/$comp; done
 # icu-dev might get strange…
@@ -24,3 +25,4 @@ WORKDIR /home/build
 # ENV LD_LIBRARY_PATH /usr/local/lib
 
 USER build
+RUN git config --global --add safe.directory /src/icu

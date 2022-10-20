@@ -26,6 +26,8 @@ mv -v dist /dist/${FN}-src.d
 rm -rf doc
 make doc-searchengine
 
+git config --global --add safe.directory /src/icu
+
 #FN=icu-r$(svnversion /src/icu/ | tr -d ' ')-$(bash /src/icu/icu4c/source/config.guess)-${1:RANDOM}
 tar cfpz /dist/${FN}-sdoc.tgz ./doc || exit 1
 #cd /dist

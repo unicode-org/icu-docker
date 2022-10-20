@@ -10,8 +10,10 @@ RUN useradd -c "Build user" -d $HOME -m build
 
 # sanity and safety
 RUN apt-get -q -y update && apt-get -q -y upgrade
-RUN apt-get -q -y install make git python ccache valgrind doxygen zip curl wget
+RUN apt-get -q -y install make git python3 ccache valgrind doxygen zip curl wget
 RUN apt-get -q -y install clang
+RUN apt-get update --fix-missing
+
 RUN mkdir /src /dist
 VOLUME /src
 VOLUME /dist
@@ -24,3 +26,4 @@ RUN apt-get -q -y remove libicu-dev
 ENV LD_LIBRARY_PATH /usr/local/lib
 
 USER build
+RUN git config --global --add safe.directory /src/icu
