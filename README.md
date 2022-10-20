@@ -2,10 +2,10 @@
 
 This repository creates ICU4C releases using Docker for multiple Linux versions. The binary files results may be added to [ICU releases](https://github.com/unicode-org/icu/releases) for public distribution, especially for the release candidates ("72 RC") and fully released versions (e.g., "72.1").
 
-TO use this repository you will need:
+To use this repository you will need:
 
-* Access to ICU in the Github repository
-* A branch within that repository
+* Access to the [ICU repository in Github](https://www.github.com/unicode-org/icu)
+* Know the branch / tag of interest within that repository
 * Docker installed and configured
 
 This repository contains:
@@ -26,7 +26,7 @@ The following steps create binary files for each docker file in `./dockerfiles` 
 
   ```
   cd src
-  export BRANCH=maint/maint-72  # Set this up to use the Githum version you need.
+  export BRANCH=maint/maint-72  # Set this up to use the git ref (branch / Github release tag) you need.
 
   git clone --branch $BRANCH --depth 1 https://github.com/unicode-org/icu.git
   cd icu
@@ -54,7 +54,7 @@ Each binary needs to include the version label, e.g., "69rc" for the release can
 
 ### Optional: Link `src/` to `/src` on your system
 
-  This symlink will make give access to the error messages generated inside each docker container. For example: `Error in /src/icu/somefile.cpp`.
+  This symlink will give access to the error messages generated inside each docker container. For example: `Error in /src/icu/somefile.cpp`.
   ```
   sudo ln -sv `pwd`/{src,dist} /
   ```
