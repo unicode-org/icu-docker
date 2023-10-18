@@ -25,29 +25,29 @@ The following steps create binary files for each docker file in `./dockerfiles` 
 - Copy the code for a given branch of [ICU source in github](https://github.com/unicode-org/icu).
 
   ```
-  cd src
-  export BRANCH=maint/maint-72  # Set this up to use the git ref (branch / Github release tag) you need.
+# Set this to use the git ref (branch / Github release tag) you need.
+export RELEASE_BRANCH=maint/maint-72
 
-  git clone --branch $BRANCH --depth 1 https://github.com/unicode-org/icu.git
-  cd icu
-  git lfs fetch; git lfs checkout
-  cd ../..
+sh setup_icu4c_src.sh
   ```
+
 - Compile and Run tests to verify the ICU4C version
   ```
   make check-all
   ```
-- Build binaries, data, and source as .zip and .tgz files in the ./dist directory
+- Build binaries, data, and source as .zip and .tgz files in the ./dist
+  directory ``` make dist # Wait while this builds distribution output...
   ```
-  make dist
-  ```
-  Note that some filenames in ./dist/ will need to be adjusted so be sure to rename. Use the script sort-out-dist.sh, and then manually adjust as needed to match the names as in previous releases.
+  **Important:** Many some filenames in ./dist/ need to be renamed. Try the
+  script sort-out-dist.sh, and then manually adjust as needed to match the names
+  as in previous releases.
 
 - Sort and rename files into `dist/icu4c-*/*`
 
 Each binary needs to include the version label, e.g., "69rc" for the release candidate of ICU version 69. The general availability for that would be "69.1".
   ```
   ./sort-out-dist.sh
+  # Check the results
   ls -l dist/icu4c-*
   ```
   **Hint:** Check the names of files in a previous release such as [Release ICU 72.1](https://github.com/unicode-org/icu/releases/tag/release-72-1) in order to check if the renaming was successful. If not, perform manual renaming as needed.
