@@ -30,6 +30,12 @@ The following steps create binary files for each docker file in `./dockerfiles` 
 
   sh setup_icu4c_src.sh
 
+  # Optional: Link `src/` to `/src` on your system to to give access to
+  # error messages generated inside each docker container.
+  # For example: `Error in /src/icu/somefile.cpp`.
+  sudo ln -sv `pwd`/{src,dist} /
+  
+  # This checks compile and tests for all platforms in dockerfiles/
   make check-all  # This is a long, slow step
   ```
 - Build binaries, data, and source as .zip and .tgz files in the ./dist
@@ -54,14 +60,7 @@ The following steps create binary files for each docker file in `./dockerfiles` 
   # Review and fix the results here:
   ls -l dist/icu4c-*
   ```
-
-### Optional: Link `src/` to `/src` on your system
-
-  Set up this symlink to give access to error messages generated inside each docker container. For example: `Error in /src/icu/somefile.cpp`.
-  ```
-  sudo ln -sv `pwd`/{src,dist} /
-  ```
-
+  
 ## Verify that the distributions work
 
 Perform some command line builds to verify the release. Use `docker-compose run` with each of the releases to check the build. Do this for each of the target Linux versions in `./dockerfiles`.
