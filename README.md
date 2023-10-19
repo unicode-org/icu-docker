@@ -30,13 +30,13 @@ The following steps create binary files for each docker file in `./dockerfiles` 
 
   sh setup_icu4c_src.sh
 
-  make check-all
+  make check-all  # This is a long, slow step
   ```
 - Build binaries, data, and source as .zip and .tgz files in the ./dist
   directory:
 
   ```
-  make dist # Wait while this builds distribution output... 
+  make dist  # Wait while this builds distribution output... 
   ```
 
 - Sort and rename files into `dist/icu4c-*/*`.
@@ -46,7 +46,7 @@ The following steps create binary files for each docker file in `./dockerfiles` 
   **Important:** The script `sort-out-dist.sh` may be helpful, but
   manually adjustments may be needed.
 
-  **Hint:** Review names of files in a previous release such as [Release ICU 72.1](https://github.com/unicode-org/icu/releases/tag/release-72-1) to check if the renaming was successful. If not, perform manual renaming as needed.
+  **Hint:** Review names of files in a previous release such as [Release ICU 72.1](https://github.com/unicode-org/icu/releases/tag/release-72-1) to check if renaming was successful. If not, perform manual renaming as needed.
 
   ```
   ./sort-out-dist.sh
