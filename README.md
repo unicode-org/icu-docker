@@ -33,11 +33,12 @@ The following steps create binary files for each docker file in `./dockerfiles` 
   make check-all
   ```
 - Build binaries, data, and source as .zip and .tgz files in the ./dist
-  directory ``` make dist # Wait while this builds distribution output...
+  directory:
+  ```
+  make dist # Wait while this builds distribution output...
   ```
   **Important:** Many some filenames in ./dist/ need to be renamed. Try the
-  script sort-out-dist.sh, and then manually adjust as needed to match the names
-  as in previous releases.
+  script `sort-out-dist.sh`, and then manually adjust as needed to match the names as they have been in previous releases.
 
 - Sort and rename files into `dist/icu4c-*/*`
 
