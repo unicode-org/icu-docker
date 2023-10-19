@@ -50,7 +50,7 @@ The following steps create binary files for each docker file in `./dockerfiles` 
   Each binary needs to include the version label, e.g., "69rc" for the release candidate of ICU version 69. The general availability for that would be "69.1".
 
   **Important:** The script `sort-out-dist.sh` may be helpful, but
-  manually adjustments may be needed.
+  manual adjustments may be needed.
 
   **Hint:** Review names of files in a previous release such as [Release ICU 72.1](https://github.com/unicode-org/icu/releases/tag/release-72-1) to check if renaming was successful. If not, change file names as needed.
 
