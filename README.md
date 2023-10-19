@@ -33,26 +33,27 @@ The following steps create binary files for each docker file in `./dockerfiles` 
   make check-all
   ```
 - Build binaries, data, and source as .zip and .tgz files in the ./dist
-  directory:
-  ```
-  make dist # Wait while this builds distribution output...
-  ```
-  **Important:** Many some filenames in ./dist/ need to be renamed. Try the
-  script `sort-out-dist.sh`, and then manually adjust as needed to match the names as they have been in previous releases.
+  directory: ``` make dist # Wait while this builds distribution output...  ```
 
-- Sort and rename files into `dist/icu4c-*/*`
+- Sort and rename files into `dist/icu4c-*/*`.
 
-Each binary needs to include the version label, e.g., "69rc" for the release candidate of ICU version 69. The general availability for that would be "69.1".
+  Each binary needs to include the version label, e.g., "69rc" for the release candidate of ICU version 69. The general availability for that would be "69.1".
+
+  **Important:** The script `sort-out-dist.sh` may be helpful, but
+  manually adjustments may be needed.
+
+  **Hint:** Review names of files in a previous release such as [Release ICU 72.1](https://github.com/unicode-org/icu/releases/tag/release-72-1) to check if the renaming was successful. If not, perform manual renaming as needed.
+
   ```
   ./sort-out-dist.sh
-  # Check the results
+
+  # Review and fix the results here:
   ls -l dist/icu4c-*
   ```
-  **Hint:** Check the names of files in a previous release such as [Release ICU 72.1](https://github.com/unicode-org/icu/releases/tag/release-72-1) in order to check if the renaming was successful. If not, perform manual renaming as needed.
 
 ### Optional: Link `src/` to `/src` on your system
 
-  This symlink will give access to the error messages generated inside each docker container. For example: `Error in /src/icu/somefile.cpp`.
+  Set up this symlink to give access to error messages generated inside each docker container. For example: `Error in /src/icu/somefile.cpp`.
   ```
   sudo ln -sv `pwd`/{src,dist} /
   ```
@@ -61,7 +62,7 @@ Each binary needs to include the version label, e.g., "69rc" for the release can
 
 Perform some command line builds to verify the release. Use `docker-compose run` with each of the releases to check the build. Do this for each of the target Linux versions in `./dockerfiles`.
   ```
-  $ docker-compose run ubuntu bash
+  docker-compose run ubuntu bash
   # This creates a temporary docker shell with a name such as 'build@59b67f6c5058:~'
   build@59b67f6c5058:~$ /src/icu/icu4c/source/configure
   # This will show the ICU version number of the release just created.
