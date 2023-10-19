@@ -25,14 +25,11 @@ The following steps create binary files for each docker file in `./dockerfiles` 
 - Copy the code for a given branch of [ICU source in github](https://github.com/unicode-org/icu).
 
   ```
-# Set this to use the git ref (branch / Github release tag) you need.
-export RELEASE_BRANCH=maint/maint-72
+  # Set this to use the git ref (branch / Github release tag) you need.
+  export RELEASE_BRANCH=maint/maint-74  # !! Example !!
 
-sh setup_icu4c_src.sh
-  ```
+  sh setup_icu4c_src.sh
 
-- Compile and Run tests to verify the ICU4C version
-  ```
   make check-all
   ```
 - Build binaries, data, and source as .zip and .tgz files in the ./dist
