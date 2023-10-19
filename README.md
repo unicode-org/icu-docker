@@ -46,7 +46,7 @@ The following steps create binary files for each docker file in `./dockerfiles` 
   **Important:** The script `sort-out-dist.sh` may be helpful, but
   manually adjustments may be needed.
 
-  **Hint:** Review names of files in a previous release such as [Release ICU 72.1](https://github.com/unicode-org/icu/releases/tag/release-72-1) to check if renaming was successful. If not, perform manual renaming as needed.
+  **Hint:** Review names of files in a previous release such as [Release ICU 72.1](https://github.com/unicode-org/icu/releases/tag/release-72-1) to check if renaming was successful. If not, change file names as needed.
 
   ```
   ./sort-out-dist.sh
@@ -68,11 +68,13 @@ Perform some command line builds to verify the release. Use `docker-compose run`
   ```
   docker-compose run ubuntu bash
   # This creates a temporary docker shell with a name such as 'build@59b67f6c5058:~'
-  build@59b67f6c5058:~$ /src/icu/icu4c/source/configure
+  
+  /src/icu/icu4c/source/configure
   # This will show the ICU version number of the release just created.
-  build@59b67f6c5058:~$ make check  # To run all ICU4C tests
-  ...
-  build@59b67f6c5058:~$ exit  # To leave the docker shell
+  make check  # To run all ICU4C tests
+
+  # ...
+   exit  # To leave the docker shell
   ```
 
 ## Customization
